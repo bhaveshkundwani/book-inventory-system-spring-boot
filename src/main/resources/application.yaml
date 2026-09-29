@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: book-inventory-system
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/book_inventory
+    username: postgres
+    password: bhavesh18
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+server:
+  port: 8080

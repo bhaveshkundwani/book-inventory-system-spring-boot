@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Add New Book</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+	<!-- ================= NAVBAR ================= -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
+		<div class="container">
+
+			<a class="navbar-brand" th:href="@{/}">
+
+				<i class="fa fa-book"></i>
+				Book Inventory
+
+			</a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="mainNavbar">
+
+				<ul class="navbar-nav ms-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/}">
+
+							<i class="fa fa-home"></i>
+							Home
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link active" th:href="@{/addBook}">
+
+							<i class="fa fa-plus"></i>
+							Add Book
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/search}">
+
+							<i class="fa fa-search"></i>
+							Search Book
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/deleteBook}">
+
+							<i class="fa fa-trash"></i>
+							Delete Book
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/info}">
+
+							<i class="fa fa-info-circle"></i>
+							Book Info
+
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</nav>
+
+
+	<!-- ================= ADD BOOK ================= -->
+
+	<main class="container">
+
+		<div class="form-container">
+
+			<h2 class="page-title">
+				<i class="fa fa-plus-circle"></i>
+				Add New Book
+			</h2>
+
+
+			<!-- SUCCESS MESSAGE -->
+
+			<div th:if="${message}" class="alert alert-success alert-dismissible fade show">
+
+				<i class="fa fa-check-circle"></i>
+
+				<span th:text="${message}">
+					Book added successfully.
+				</span>
+
+				<button type="button" class="btn-close" data-bs-dismiss="alert">
+				</button>
+
+			</div>
+
+
+			<!-- ERROR MESSAGE -->
+
+			<div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+
+				<i class="fa fa-exclamation-circle"></i>
+
+				<span th:text="${error}">
+					Failed to add book.
+				</span>
+
+				<button type="button" class="btn-close" data-bs-dismiss="alert">
+				</button>
+
+			</div>
+
+
+			<!-- FORM -->
+
+			<form th:action="@{/addBook}" th:object="${book}" method="post">
+
+				<div class="row">
+
+					<!-- LEFT COLUMN -->
+
+					<div class="col-md-6">
+
+						<div class="mb-3">
+
+							<label for="bookid">
+								Book ID
+							</label>
+
+							<input type="text" id="bookid" th:field="*{bookid}" class="form-control"
+								placeholder="Book ID will be generated" readonly>
+
+						</div>
+
+
+						<div class="mb-3">
+
+							<label for="title">
+								Book Title
+							</label>
+
+							<input type="text" id="title" th:field="*{title}" class="form-control"
+								placeholder="Enter book title" required>
+
+						</div>
+
+
+						<div class="mb-3">
+
+							<label for="author">
+								Author Name
+							</label>
+
+							<input type="text" id="author" th:field="*{author}" class="form-control"
+								placeholder="Enter author name" required>
+
+						</div>
+
+
+						<div class="mb-3">
+
+							<label for="publisher">
+								Publisher
+							</label>
+
+							<input type="text" id="publisher" th:field="*{publisher}" class="form-control"
+								placeholder="Enter publisher" required>
+
+						</div>
+
+					</div>
+
+
+					<!-- RIGHT COLUMN -->
+
+					<div class="col-md-6">
+
+						<div class="mb-3">
+
+							<label for="publicationYear">
+								Publication Year
+							</label>
+
+							<input type="text" id="publicationYear" th:field="*{publicationYear}" class="form-control"
+								placeholder="Example: 2026" required>
+
+						</div>
+
+
+						<div class="mb-3">
+
+							<label for="price">
+								Book Price
+							</label>
+
+							<input type="number" id="price" th:field="*{price}" class="form-control"
+								placeholder="Enter book price" min="0" step="0.01" required>
+
+						</div>
+
+
+						<div class="mb-3">
+
+							<label for="quantity">
+								Book Quantity
+							</label>
+
+							<input type="text" id="quantity" th:field="*{quantity}" class="form-control"
+								placeholder="Enter quantity" required>
+
+						</div>
+
+
+						<div class="mb-3">
+
+							<label for="language">
+								Language
+							</label>
+
+							<input type="text" id="language" th:field="*{language}" class="form-control"
+								placeholder="Example: English" required>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<div class="mt-4">
+
+					<button type="submit" class="btn btn-success">
+
+						<i class="fa fa-plus"></i>
+						Add Book
+
+					</button>
+
+					<a th:href="@{/}" class="btn btn-secondary">
+
+						Cancel
+
+					</a>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</main>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">
+	</script>
+
+</body>
+
+</html>

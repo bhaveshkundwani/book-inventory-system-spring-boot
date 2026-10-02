@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Search Book - Book Inventory</title>
+
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">
+	</script>
+
+	<style>
+		body {
+			background-color: #f8f9fa;
+		}
+
+		.navbar-brand {
+			font-weight: bold;
+			color: white !important;
+		}
+
+		.nav-link {
+			color: white !important;
+			text-decoration: none;
+			font-weight: 500;
+			margin-left: 2rem;
+		}
+
+		.page-title {
+			font-weight: 600;
+			color: #198754;
+		}
+
+		.search-card {
+			background-color: white;
+			padding: 25px;
+			border-radius: 10px;
+
+			box-shadow:
+				rgba(0, 0, 0, 0.1) 0px 4px 12px;
+		}
+
+		label {
+			font-size: 16px;
+			color: black;
+			font-weight: 600;
+		}
+
+		th {
+			color: white !important;
+			text-align: center;
+		}
+
+		td {
+			vertical-align: middle;
+			text-align: center;
+		}
+
+		.result-card {
+			background-color: white;
+			padding: 20px;
+			border-radius: 10px;
+
+			box-shadow:
+				rgba(0, 0, 0, 0.1) 0px 4px 12px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- ================= NAVBAR ================= -->
+
+	<nav class="navbar navbar-expand-sm navbar-dark bg-success p-3">
+
+		<div class="container">
+
+			<a class="navbar-brand" href="/">
+				<i class="fa fa-book"></i>
+				Book Inventory
+			</a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+				aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="collapsibleNavId">
+
+				<ul class="navbar-nav m-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" href="/">
+							<i class="fa fa-home"></i>
+							Home
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/addBook">
+							<i class="fa fa-plus"></i>
+							Add Book
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link active" href="/search">
+							<i class="fa fa-search"></i>
+							Search Book
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/deleteBook">
+							<i class="fa fa-trash"></i>
+							Delete Book
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/info">
+							<i class="fa fa-info-circle"></i>
+							Other Info
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</nav>
+
+
+	<!-- ================= MAIN ================= -->
+
+	<main>
+
+		<div class="container mt-5">
+
+			<!-- Page Title -->
+
+			<h3 class="page-title mb-4">
+				<i class="fa fa-search"></i>
+				Search Book Information
+			</h3>
+
+
+			<!-- ================= SEARCH FORM ================= -->
+
+			<div class="search-card">
+
+				<form th:action="@{/search}" method="post">
+
+					<div class="mb-3">
+
+						<label for="bookid">
+							Book ID
+						</label>
+
+						<input type="text" id="bookid" name="bookid" class="form-control" placeholder="Enter Book ID"
+							required>
+
+					</div>
+
+					<button type="submit" class="btn btn-primary">
+
+						<i class="fa fa-search"></i>
+						Search Book
+
+					</button>
+
+				</form>
+
+			</div>
+
+
+			<!-- ================= SUCCESS RESULT ================= -->
+
+			<div class="result-card mt-4" th:if="${book != null}">
+
+				<h5 class="text-success mb-3">
+
+					<i class="fa fa-check-circle"></i>
+					Book Found
+
+				</h5>
+
+				<div class="table-responsive">
+
+					<table class="table table-bordered">
+
+						<thead class="bg-success">
+
+							<tr>
+
+								<th>Book ID</th>
+
+								<th>Title</th>
+
+								<th>Author</th>
+
+								<th>Publisher</th>
+
+								<th>Publication Year</th>
+
+								<th>Price</th>
+
+								<th>Quantity</th>
+
+								<th>Language</th>
+
+							</tr>
+
+						</thead>
+
+						<tbody>
+
+							<tr>
+
+								<td th:text="${book.bookid}">
+									Book ID
+								</td>
+
+								<td th:text="${book.title}">
+									Title
+								</td>
+
+								<td th:text="${book.author}">
+									Author
+								</td>
+
+								<td th:text="${book.publisher}">
+									Publisher
+								</td>
+
+								<td th:text="${book.publicationYear}">
+									Publication Year
+								</td>
+
+								<td th:text="${book.price}">
+									Price
+								</td>
+
+								<td th:text="${book.quantity}">
+									Quantity
+								</td>
+
+								<td th:text="${book.language}">
+									Language
+								</td>
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+
+
+			<!-- ================= ERROR ================= -->
+
+			<div class="alert alert-danger alert-dismissible fade show mt-4" role="alert"
+				th:if="${errorMessage != null}">
+
+				<i class="fa fa-exclamation-circle"></i>
+
+				<span th:text="${errorMessage}">
+					Book not found!
+				</span>
+
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+				</button>
+
+			</div>
+
+		</div>
+
+	</main>
+
+</body>
+
+</html>

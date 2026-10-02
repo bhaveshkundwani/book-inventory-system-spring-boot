@@ -101,7 +101,7 @@ public class BookController {
 	@GetMapping("/deleteBook")
 	public String showDeleteBook(Model model) {
 		model.addAttribute("book", new Book());
-		return "deletebook";
+		return "deleteBook";
 	}
 
 	// =========================
@@ -119,7 +119,7 @@ public class BookController {
 			model.addAttribute("errorMessage", "Book not found!");
 		}
 
-		return "deletebook";
+		return "deleteBook";
 	}
 
 	// =========================

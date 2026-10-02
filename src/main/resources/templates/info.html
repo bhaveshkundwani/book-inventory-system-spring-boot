@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Book Information</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+	<!-- ================= NAVBAR ================= -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
+		<div class="container">
+
+			<a class="navbar-brand" th:href="@{/}">
+
+				<i class="fa fa-book"></i>
+				Book Inventory
+
+			</a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="mainNavbar">
+
+				<ul class="navbar-nav ms-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/}">
+
+							<i class="fa fa-home"></i>
+							Home
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/addBook}">
+
+							<i class="fa fa-plus"></i>
+							Add Book
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/search}">
+
+							<i class="fa fa-search"></i>
+							Search Book
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/deleteBook}">
+
+							<i class="fa fa-trash"></i>
+							Delete Book
+
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link active" th:href="@{/info}">
+
+							<i class="fa fa-info-circle"></i>
+							Book Info
+
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</nav>
+
+
+	<!-- ================= DASHBOARD ================= -->
+
+	<main class="container">
+
+		<h2 class="page-title">
+
+			<i class="fa fa-info-circle"></i>
+			Book Inventory Information
+
+		</h2>
+
+
+		<!-- STATISTICS -->
+
+		<div class="row mt-4">
+
+			<!-- TOTAL BOOKS -->
+
+			<div class="col-md-4 mb-3">
+
+				<div class="stat-card">
+
+					<i class="fa fa-book fa-2x text-success"></i>
+
+					<h5>
+						Total Books
+					</h5>
+
+					<h2 class="text-success" th:text="${totalBooks}">
+
+						0
+
+					</h2>
+
+				</div>
+
+			</div>
+
+
+			<!-- TOTAL PRICE -->
+
+			<div class="col-md-4 mb-3">
+
+				<div class="stat-card">
+
+					<i class="fa fa-money fa-2x text-success"></i>
+
+					<h5>
+						Total Books Price
+					</h5>
+
+					<h2 class="text-success">
+
+						₹<span th:text="${totalBooksPrice}">
+							0
+						</span>
+
+					</h2>
+
+				</div>
+
+			</div>
+
+
+			<!-- TOTAL AUTHORS -->
+
+			<div class="col-md-4 mb-3">
+
+				<div class="stat-card">
+
+					<i class="fa fa-users fa-2x text-success"></i>
+
+					<h5>
+						Total Authors
+					</h5>
+
+					<h2 class="text-success" th:text="${totalAuthors}">
+
+						0
+
+					</h2>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<!-- BOOK TABLE -->
+
+		<div class="inventory-table mt-5">
+
+			<div class="d-flex justify-content-between align-items-center mb-3">
+
+				<h4 class="text-success">
+
+					<i class="fa fa-list"></i>
+					Available Books
+
+				</h4>
+
+				<a th:href="@{/addBook}" class="btn btn-success">
+
+					<i class="fa fa-plus"></i>
+					Add Book
+
+				</a>
+
+			</div>
+
+
+			<div class="table-responsive">
+
+				<table class="table table-bordered table-hover align-middle">
+
+					<thead class="table-success">
+
+						<tr>
+
+							<th>Book ID</th>
+
+							<th>Title</th>
+
+							<th>Author</th>
+
+							<th>Publisher</th>
+
+							<th>Publication Year</th>
+
+							<th>Price</th>
+
+							<th>Quantity</th>
+
+							<th>Language</th>
+
+						</tr>
+
+					</thead>
+
+
+					<tbody>
+
+						<tr th:each="book : ${books}">
+
+							<td th:text="${book.bookid}">
+							</td>
+
+							<td th:text="${book.title}">
+							</td>
+
+							<td th:text="${book.author}">
+							</td>
+
+							<td th:text="${book.publisher}">
+							</td>
+
+							<td th:text="${book.publicationYear}">
+							</td>
+
+							<td>
+								₹<span th:text="${book.price}">
+								</span>
+							</td>
+
+							<td th:text="${book.quantity}">
+							</td>
+
+							<td th:text="${book.language}">
+							</td>
+
+						</tr>
+
+
+						<!-- NO BOOKS -->
+
+						<tr th:if="${#lists.isEmpty(books)}">
+
+							<td colspan="8" class="text-center text-muted">
+
+								<i class="fa fa-info-circle"></i>
+
+								No books available.
+
+							</td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+
+	</main>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">
+	</script>
+
+</body>
+
+</html>
